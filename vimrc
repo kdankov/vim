@@ -1,4 +1,7 @@
 set nocompatible
+set t_Co=256
+colorscheme torte
+set bg=dark
 let mapleader = ","
 noremap \ ,
 
@@ -327,14 +330,6 @@ map <Leader>u :GundoToggle<CR>
 " Space.vim {{{2
 let g:space_disable_select_mode=1
 let g:space_no_search = 1
-
-" Solarized {{{2
-let g:solarized_menu=0
-set background=light
-silent! colorscheme solarized
-if exists('*togglebg#map')
-  call togglebg#map("<F5>")
-endif
 
 " Vim-ruby {{{2
 let ruby_fold=1

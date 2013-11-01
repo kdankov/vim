@@ -1,7 +1,7 @@
 set nocompatible
 set t_Co=256
 colorscheme torte
-set bg=dark
+set bg=light
 let mapleader = ","
 noremap \ ,
 
@@ -68,12 +68,6 @@ set shiftwidth=4
 set noexpandtab
 set nowrap
 
-" Enable persistent undo {{{2
-set undofile
-set undodir=~/tmp/vim/undo
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
-endif
 " Disable swapfile and backup {{{2
 set nobackup
 set noswapfile

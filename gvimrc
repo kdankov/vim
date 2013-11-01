@@ -1,4 +1,4 @@
-set bg=dark
+set bg=light
 set guifont=Monaco:h14
 
 silent! colorscheme solarized

@@ -1,7 +1,7 @@
 set nocompatible
 set t_Co=256
 colorscheme torte
-set bg=dark
+set bg=light
 let mapleader = ","
 noremap \ ,
 

@@ -1,9 +1,9 @@
-set bg=dark
+set bg=light
 set guifont=Monaco:h14
 
 silent! colorscheme solarized
 let g:solarized_menu=0
-silent! colorscheme solarized
+
 if exists('*togglebg#map')
   call togglebg#map("<F5>")
 endif
@@ -18,3 +18,14 @@ endif
 set guioptions+=c
 " Do not use Aqua scrollbars
 set guioptions-=rL
+
+" Enable persistent undo {{{2
+set undofile
+set undodir=~/tmp/vim/undo
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+" Disable swapfile and backup {{{2
+set nobackup
+set noswapfile
+" }}}

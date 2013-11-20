@@ -67,16 +67,6 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set nowrap
-
-" Enable persistent undo {{{2
-set undofile
-set undodir=~/tmp/vim/undo
-if !isdirectory(expand(&undodir))
-    call mkdir(expand(&undodir), "p")
-endif
-" Disable swapfile and backup {{{2
-set nobackup
-set noswapfile
 " }}}
 
 " Mappings {{{1

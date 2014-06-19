@@ -64,3 +64,18 @@
 [submodule "bundle/wordpress.vim"]
 	path = bundle/wordpress.vim
 	url = git@github.com:dsawardekar/wordpress.vim.git
+[submodule "bundle/scss-syntax"]
+	path = bundle/scss-syntax
+	url = git@github.com:cakebaker/scss-syntax.vim.git
+[submodule "bundle/ack"]
+	path = bundle/ack
+	url = git@github.com:mileszs/ack.vim.git
+[submodule "bundle/ultisnips"]
+	path = bundle/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule "bundle/snippets"]
+	path = bundle/snippets
+	url = git@github.com:kdankov/vim-snippets.git
+[submodule "bundle/vim-snippets"]
+	path = bundle/vim-snippets
+	url = git@github.com:kdankov/vim-snippets.git

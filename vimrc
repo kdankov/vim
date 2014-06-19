@@ -333,6 +333,24 @@ let g:markdown_fenced_languages = ['cpp', 'python']
 let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_working_path_mode = 0
 
+let g:ctrlp_prompt_mappings = {
+	\ 'AcceptSelection("e")': ['<c-t>'],
+	\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+	\ }
+
+" UltiSnips {{{2
+let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
+
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+
 " Pipe a URL to the default browser {{{1
 "
 " Public:

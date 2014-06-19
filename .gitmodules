@@ -1,15 +1,9 @@
-[submodule "bundle/snippets"]
-	path = bundle/snippets
-	url = https://github.com/kdankov/snippets
 [submodule "bundle/tlib"]
 	path = bundle/tlib
 	url = git://github.com/tomtom/tlib_vim.git
 [submodule "bundle/markdown"]
 	path = bundle/markdown
 	url = https://github.com/tpope/vim-markdown.git
-[submodule "bundle/gitgutter"]
-	path = bundle/gitgutter
-	url = https://github.com/airblade/vim-gitgutter.git
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter.git
@@ -55,12 +49,6 @@
 [submodule "bundle/theme-solarized"]
 	path = bundle/theme-solarized
 	url = git://github.com/altercation/vim-colors-solarized.git
-[submodule "bundle/snipmate"]
-	path = bundle/snipmate
-	url = git://github.com/garbas/vim-snipmate.git
-[submodule "bundle/mw-utils"]
-	path = bundle/mw-utils
-	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = git://github.com/tpope/vim-surround.git
@@ -73,12 +61,6 @@
 [submodule "bundle/dash.vim"]
 	path = bundle/dash.vim
 	url = https://github.com/rizzatti/dash.vim.git
-[submodule "bundle/csscomb"]
-	path = bundle/csscomb
-	url = https://github.com/miripiruni/CSScomb-for-Vim.git
 [submodule "bundle/wordpress.vim"]
 	path = bundle/wordpress.vim
 	url = git@github.com:dsawardekar/wordpress.vim.git
-[submodule "bundle/php.vim"]
-	path = bundle/php.vim
-	url = git@github.com:StanAngeloff/php.vim.git

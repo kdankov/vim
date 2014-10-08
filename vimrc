@@ -5,6 +5,12 @@ set bg=light
 let mapleader = ","
 noremap \ ,
 
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set noexpandtab
+set nowrap
+
 " Load plugins that ship with Vim {{{1
 runtime macros/matchit.vim
 runtime ftplugin/man.vim
@@ -61,13 +67,6 @@ if &t_Co > 2 || has("gui_running")
 endif
 set foldlevelstart=99
 
-" Indentation {{{2
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set noexpandtab
-set nowrap
-" }}}
 
 " Mappings {{{1
 " Quick toggles {{{2

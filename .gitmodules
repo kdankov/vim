@@ -79,3 +79,6 @@
 [submodule "bundle/vim-snippets"]
 	path = bundle/vim-snippets
 	url = git@github.com:kdankov/vim-snippets.git
+[submodule "bundle/vim-mustache"]
+	path = bundle/vim-mustache
+	url = git://github.com/mustache/vim-mustache-handlebars.git

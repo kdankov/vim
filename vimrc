@@ -20,30 +20,24 @@ execute pathogen#infect()
 
 " Autocommands {{{1
 if has("autocmd")
-  filetype plugin indent on
-  augroup vimrcEx
-  au!
-  autocmd BufReadPost *
-    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
-  augroup END
+	filetype plugin indent on
 else
-  set autoindent		" always set autoindenting on
+	set autoindent		" always set autoindenting on
 endif
 
 " Preferences {{{1
 " Behaviour {{{2
 set backspace=indent,eol,start
-set history=50
+set history=500
 set incsearch
 set visualbell t_vb=
 set hidden
 set nojoinspaces
 set nrformats=
+
 if has('mouse')
-  " Don't want the mouse to work in insert mode.
-  set mouse=nv
+	" Don't want the mouse to work in insert mode.
+	set mouse=nv
 endif
 
 " Tab-completion in command-line mode
@@ -60,13 +54,13 @@ set laststatus=2
 set listchars=tab:▸\ ,eol:¬
 set number
 set cursorline
+
 " When the terminal has colors, enable syntax+search highlighting
 if &t_Co > 2 || has("gui_running")
-  syntax on
-  set hlsearch
+	syntax on
+	set hlsearch
 endif
 set foldlevelstart=99
-
 
 " Mappings {{{1
 " Quick toggles {{{2
@@ -145,7 +139,6 @@ nmap <silent> <leader>U :Open<CR>
 
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>
-
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
@@ -170,6 +163,7 @@ if has("autocmd")
 	autocmd Filetype markdown setlocal wrap
 	autocmd Filetype markdown setlocal linebreak
 	autocmd Filetype markdown setlocal nolist
+	autocmd Filetype php set ft=phtml
 endif
 
 " Crude visualmode-only mappings for block level XML tags {{{2
@@ -188,15 +182,15 @@ nnoremap <C-L> :call g:ToggleNuMode()<cr>
 
 " Strip trailing whitespace {{{2
 function! Preserve(command)
-  " Preparation: save last search, and cursor position.
-  let _s=@/
-  let l = line(".")
-  let c = col(".")
-  " Do the business:
-  execute a:command
-  " Clean up: restore previous search history, and cursor position
-  let @/=_s
-  call cursor(l, c)
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	execute a:command
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
 endfunction
 
 nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
@@ -206,20 +200,20 @@ nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
 " http://stackoverflow.com/questions/7400743/
 cnoremap <c-x> <c-r>=<SID>PasteEscaped()<cr>
 function! s:PasteEscaped()
-  echo "\\".getcmdline()."\""
-  let char = getchar()
-  if char == "\<esc>"
-    return ''
-  else
-    let register_content = getreg(nr2char(char))
-    let escaped_register = escape(register_content, '\'.getcmdtype())
-    return substitute(escaped_register, '\n', '\\n', 'g')
-  endif
+	echo "\\".getcmdline()."\""
+	let char = getchar()
+	if char == "\<esc>"
+		return ''
+	else
+		let register_content = getreg(nr2char(char))
+		let escaped_register = escape(register_content, '\'.getcmdtype())
+		return substitute(escaped_register, '\n', '\\n', 'g')
+	endif
 endfunction
 
 " Custom commands {{{1
 function! Foo()
-  call system('sleep 2')
+	call system('sleep 2')
 endfunction
 
 " :Stab {{{2
@@ -227,29 +221,29 @@ endfunction
 " From http://vimcasts.org/episodes/tabs-and-spaces/
 command! -nargs=* Stab call Stab()
 function! Stab()
-  let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
-  if l:tabstop > 0
-    let &l:sts = l:tabstop
-    let &l:ts = l:tabstop
-    let &l:sw = l:tabstop
-  endif
-  call SummarizeTabs()
+	let l:tabstop = 1 * input('set tabstop = softtabstop = shiftwidth = ')
+	if l:tabstop > 0
+		let &l:sts = l:tabstop
+		let &l:ts = l:tabstop
+		let &l:sw = l:tabstop
+	endif
+	call SummarizeTabs()
 endfunction
 
 function! SummarizeTabs()
-  try
-    echohl ModeMsg
-    echon 'tabstop='.&l:ts
-    echon ' shiftwidth='.&l:sw
-    echon ' softtabstop='.&l:sts
-    if &l:et
-      echon ' expandtab'
-    else
-      echon ' noexpandtab'
-    end
-  finally
-    echohl None
-  endtry
+	try
+		echohl ModeMsg
+		echon 'tabstop='.&l:ts
+		echon ' shiftwidth='.&l:sw
+		echon ' softtabstop='.&l:sts
+		if &l:et
+			echon ' expandtab'
+		else
+			echon ' noexpandtab'
+		end
+	finally
+		echohl None
+	endtry
 endfunction
 
 " :CloseHiddenBuffers {{{2
@@ -259,22 +253,22 @@ endfunction
 "   http://stackoverflow.com/questions/1534835
 command! -nargs=* Only call CloseHiddenBuffers()
 function! CloseHiddenBuffers()
-  " figure out which buffers are visible in any tab
-  let visible = {}
-  for t in range(1, tabpagenr('$'))
-    for b in tabpagebuflist(t)
-      let visible[b] = 1
-    endfor
-  endfor
-  " close any buffer that are loaded and not visible
-  let l:tally = 0
-  for b in range(1, bufnr('$'))
-    if bufloaded(b) && !has_key(visible, b)
-      let l:tally += 1
-      exe 'bw ' . b
-    endif
-  endfor
-  echon "Deleted " . l:tally . " buffers"
+	" figure out which buffers are visible in any tab
+	let visible = {}
+	for t in range(1, tabpagenr('$'))
+		for b in tabpagebuflist(t)
+			let visible[b] = 1
+		endfor
+	endfor
+	" close any buffer that are loaded and not visible
+	let l:tally = 0
+	for b in range(1, bufnr('$'))
+		if bufloaded(b) && !has_key(visible, b)
+			let l:tally += 1
+			exe 'bw ' . b
+		endif
+	endfor
+	echon "Deleted " . l:tally . " buffers"
 endfun
 
 " Plugin configuration {{{1
@@ -296,20 +290,20 @@ omap ia  <Plug>(textobj-entire-i)
 " Fugitive.vim {{{2
 if has("autocmd")
 
-  " Auto-close fugitive buffers
-  autocmd BufReadPost fugitive://* set bufhidden=delete
+	" Auto-close fugitive buffers
+	autocmd BufReadPost fugitive://* set bufhidden=delete
 
-  " Navigate up one level from fugitive trees and blobs
-  autocmd User fugitive
-    \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-    \   nnoremap <buffer> .. :edit %:h<CR> |
-    \ endif
+	" Navigate up one level from fugitive trees and blobs
+	autocmd User fugitive
+				\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+				\   nnoremap <buffer> .. :edit %:h<CR> |
+				\ endif
 
 endif
 
 " Add git branch to statusline.
 if exists("*fugitive#statusline")
-  set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+	set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 endif
 
 " Gundo.vim {{{2
@@ -318,9 +312,6 @@ map <Leader>u :GundoToggle<CR>
 " Space.vim {{{2
 let g:space_disable_select_mode=1
 let g:space_no_search = 1
-
-" Vim-ruby {{{2
-let ruby_fold=1
 
 " Vim wiki {{{2
 let g:vimwiki_menu=''
@@ -333,9 +324,9 @@ let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_working_path_mode = 0
 
 let g:ctrlp_prompt_mappings = {
-	\ 'AcceptSelection("e")': ['<c-t>'],
-	\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-	\ }
+			\ 'AcceptSelection("e")': ['<c-t>'],
+			\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+			\ }
 
 " UltiSnips {{{2
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
@@ -349,7 +340,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsEditSplit="vertical"
 
 
-
 " Pipe a URL to the default browser {{{1
 "
 " Public:
@@ -357,61 +347,61 @@ let g:UltiSnipsEditSplit="vertical"
 command! -count=0 -nargs=* -complete=file Open call s:Open(<count>, <f-args>)
 
 function! Open(path)
-  call s:Open(0, a:path)
+	call s:Open(0, a:path)
 endfunction
 
 "
 " Private:
 "
 function! s:Open(count, ...)
-  if a:count > 0
-    " then the path is visually selected
-    let path = s:GetMotion('gv')
-  elseif a:0 == 0
-    " then the path is the filename under the cursor
-    let path = expand('<cfile>')
-  else
-    " it has been given as an argument
-    let path = join(a:000, ' ')
-  endif
+	if a:count > 0
+		" then the path is visually selected
+		let path = s:GetMotion('gv')
+	elseif a:0 == 0
+		" then the path is the filename under the cursor
+		let path = expand('<cfile>')
+	else
+		" it has been given as an argument
+		let path = join(a:000, ' ')
+	endif
 
-  call s:OpenUrl(path)
-  echomsg 'Opening '.path
+	call s:OpenUrl(path)
+	echomsg 'Opening '.path
 endfunction
 
 " Open URLs with the system's default application. Works for both local and
 " remote paths.
 function! s:OpenUrl(url)
-  let url = shellescape(a:url)
+	let url = shellescape(a:url)
 
-  if has('mac')
-    silent call system('open '.url)
-  elseif has('unix')
-    if executable('xdg-open')
-      silent call system('xdg-open '.url.' 2>&1 > /dev/null &')
-    else
-      echoerr 'You need to install xdg-open to be able to open urls'
-      return
-    end
-  else
-    echoerr 'Don''t know how to open a URL on this system'
-    return
-  end
+	if has('mac')
+		silent call system('open '.url)
+	elseif has('unix')
+		if executable('xdg-open')
+			silent call system('xdg-open '.url.' 2>&1 > /dev/null &')
+		else
+			echoerr 'You need to install xdg-open to be able to open urls'
+			return
+		end
+	else
+		echoerr 'Don''t know how to open a URL on this system'
+		return
+	end
 endfunction
 
 " Execute the normal mode motion "motion" and return the text it marks. Note
 " that the motion needs to include a visual mode key, like "V", "v" or "gv".
 function! s:GetMotion(motion)
-  let saved_cursor   = getpos('.')
-  let saved_reg      = getreg('z')
-  let saved_reg_type = getregtype('z')
+	let saved_cursor   = getpos('.')
+	let saved_reg      = getreg('z')
+	let saved_reg_type = getregtype('z')
 
-  exec 'normal! '.a:motion.'"zy'
-  let text = @z
+	exec 'normal! '.a:motion.'"zy'
+	let text = @z
 
-  call setreg('z', saved_reg, saved_reg_type)
-  call setpos('.', saved_cursor)
+	call setreg('z', saved_reg, saved_reg_type)
+	call setpos('.', saved_cursor)
 
-  return text
+	return text
 endfunction
 

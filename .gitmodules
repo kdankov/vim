@@ -82,3 +82,6 @@
 [submodule "bundle/vim-mustache"]
 	path = bundle/vim-mustache
 	url = git://github.com/mustache/vim-mustache-handlebars.git
+[submodule "bundle/vim-jade2"]
+	path = bundle/vim-jade2
+	url = git@github.com:statianzo/vim-jade.git

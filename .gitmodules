@@ -85,3 +85,6 @@
 [submodule "bundle/vim-jade2"]
 	path = bundle/vim-jade2
 	url = git@github.com:statianzo/vim-jade.git
+[submodule "bundle/vim-jade"]
+	path = bundle/vim-jade
+	url = git://github.com/digitaltoad/vim-jade.git

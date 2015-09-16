@@ -45,6 +45,8 @@ set wildmode=full
 set wildmenu
 set wildignore=*.pdf,*.fo,*.xml
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/* " Ignore rules for Vim and plug-ins.
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/* " Linux/MacOSX
+
 set suffixes=.otl
 
 " Appearance {{{2
@@ -324,9 +326,15 @@ let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_working_path_mode = 0
 
 let g:ctrlp_prompt_mappings = {
-			\ 'AcceptSelection("e")': ['<c-t>'],
-			\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
-			\ }
+		\ 'AcceptSelection("e")': ['<c-t>'],
+		\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+		\ }
+
+let g:ctrlp_custom_ignore = {
+		\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+		\ 'node':  '\v[\/]\(node_modules)$',
+		\ 'file': '\v\.(exe|so|dll|map)$',
+		\ }
 
 " UltiSnips {{{2
 let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"

@@ -333,6 +333,7 @@ let g:ctrlp_prompt_mappings = {
 let g:ctrlp_custom_ignore = {
 		\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 		\ 'node':  '\v[\/]\(node_modules)$',
+		\ 'bower':  '\v[\/]\(bower_components)$',
 		\ 'file': '\v\.(exe|so|dll|map)$',
 		\ }
 

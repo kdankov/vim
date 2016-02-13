@@ -1,5 +1,7 @@
-set bg=light
-set guifont=Monaco:h14
+set bg=dark
+set macligatures
+set guifont=Fira\ Code:h14
+" https://github.com/tonsky/FiraCode
 
 silent! colorscheme solarized
 let g:solarized_menu=0
@@ -16,6 +18,7 @@ endif
 " Do not use modal alert dialogs! (Prefer Vim style prompt.)
 " http://stackoverflow.com/questions/4193654/using-vim-warning-style-in-gvim
 set guioptions+=c
+
 " Do not use Aqua scrollbars
 set guioptions-=rL
 
@@ -25,6 +28,7 @@ set undodir=~/tmp/vim/undo
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
 endif
+
 " Disable swapfile and backup {{{2
 set nobackup
 set noswapfile

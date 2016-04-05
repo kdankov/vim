@@ -4,6 +4,7 @@ colorscheme torte
 set bg=light
 let mapleader = ","
 noremap \ ,
+set exrc
 
 set tabstop=4
 set softtabstop=4
@@ -309,6 +310,9 @@ if exists("*fugitive#statusline")
 endif
 
 " Gundo.vim {{{2
+map <leader>gf :CtrlPClearAllCaches<cr> :CtrlP features_wip<cr>
+
+" Gundo.vim {{{2
 map <Leader>u :GundoToggle<CR>
 
 " Space.vim {{{2
@@ -414,3 +418,4 @@ function! s:GetMotion(motion)
 	return text
 endfunction
 
+set secure

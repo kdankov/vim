@@ -1,7 +1,63 @@
 set nocompatible
 set t_Co=256
-colorscheme torte
-set bg=light
+
+syntax on
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'rizzatti/funcoo.vim'
+Plugin 'tomtom/tlib_vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-commentary'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'AndrewRadev/sideways.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'tmhedberg/matchit'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'junegunn/limelight.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+" Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'othree/html5.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'leshill/vim-json'
+Plugin 'tpope/vim-markdown'
+Plugin 'sjl/vim-sparkup'
+Plugin 'mattn/emmet-vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'kdankov/vim-snippets'
+Plugin 'dsawardekar/wordpress.vim'
+Plugin 'junegunn/goyo.vim'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-haml'
+Plugin 'rizzatti/dash.vim'
+Plugin 'sjl/gundo.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()			" required
+
+filetype plugin indent on
+
+" Load plugins that ship with Vim {{{1
+runtime macros/matchit.vim
+runtime ftplugin/man.vim
+
+colorscheme solarized
+set bg=dark
+
 let mapleader = ","
 noremap \ ,
 set exrc
@@ -12,21 +68,22 @@ set shiftwidth=4
 set noexpandtab
 set nowrap
 
-" Load plugins that ship with Vim {{{1
-runtime macros/matchit.vim
-runtime ftplugin/man.vim
-
-" Load bundled plugins {{{1
-execute pathogen#infect()
-
-" Autocommands {{{1
-if has("autocmd")
-	filetype plugin indent on
-else
-	set autoindent		" always set autoindenting on
-endif
+set rnu
 
 " Preferences {{{1
+
+" Enable persistent undo {{{2
+set undofile
+set undodir=~/tmp/vim/undo
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+
+" Disable swapfile and backup {{{2
+set nobackup
+set noswapfile
+" }}}
+
 " Behaviour {{{2
 set backspace=indent,eol,start
 set history=500
@@ -35,11 +92,6 @@ set visualbell t_vb=
 set hidden
 set nojoinspaces
 set nrformats=
-
-if has('mouse')
-	" Don't want the mouse to work in insert mode.
-	set mouse=nv
-endif
 
 " Tab-completion in command-line mode
 set wildmode=full
@@ -57,15 +109,12 @@ set laststatus=2
 set listchars=tab:▸\ ,eol:¬
 set number
 set cursorline
+set hlsearch
 
-" When the terminal has colors, enable syntax+search highlighting
-if &t_Co > 2 || has("gui_running")
-	syntax on
-	set hlsearch
-endif
 set foldlevelstart=99
 
 " Mappings {{{1
+"
 " Quick toggles {{{2
 
 " Toggle spell checking on and off with `,s`
@@ -86,6 +135,12 @@ nnoremap <C-k> <C-W>k
 nnoremap <C-j> <C-W>j
 nnoremap <C-h> <C-W>h
 nnoremap <C-l> <C-W>l
+
+" Moving between windows
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 " File opening {{{2
 " Shortcuts for opening file in same directory as current file
@@ -110,12 +165,6 @@ nmap <D-k> gk
 nmap <D-4> g$
 nmap <D-6> g^
 nmap <D-0> g^
-
-" Moving between windows
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
 
 " Bubble single lines
 nmap <C-Up> ddkP
@@ -142,6 +191,7 @@ nmap <silent> <leader>U :Open<CR>
 
 " Toggle search highlighting
 nmap <silent> <leader>/ :set invhlsearch<CR>
+
 " Visual shifting (does not exit Visual mode)
 vnoremap < <gv
 vnoremap > >gv
@@ -161,63 +211,9 @@ map zh zH
 nnoremap & :&&<Enter>
 xnoremap & :&&<Enter>
 
-" Filetype specific config
-if has("autocmd")
-	autocmd Filetype markdown setlocal wrap
-	autocmd Filetype markdown setlocal linebreak
-	autocmd Filetype markdown setlocal nolist
-	autocmd Filetype php set ft=phtml
-endif
-
 " Crude visualmode-only mappings for block level XML tags {{{2
 nnoremap viT vitVkoj
 nnoremap vaT vatV
-
-" Toggle betwen absolute and relative numbers
-function! g:ToggleNuMode()
-	if(&rnu == 1)
-		set nu
-	else
-		set rnu
-	endif
-endfunction
-nnoremap <C-L> :call g:ToggleNuMode()<cr> 
-
-" Strip trailing whitespace {{{2
-function! Preserve(command)
-	" Preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
-	" Do the business:
-	execute a:command
-	" Clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
-endfunction
-
-nmap _$ :call Preserve("%s/\\s\\+$//e")<CR>
-
-" Escape and paste a register {{{2
-" <c-x>{char} - paste register into search field, escaping sensitive chars
-" http://stackoverflow.com/questions/7400743/
-cnoremap <c-x> <c-r>=<SID>PasteEscaped()<cr>
-function! s:PasteEscaped()
-	echo "\\".getcmdline()."\""
-	let char = getchar()
-	if char == "\<esc>"
-		return ''
-	else
-		let register_content = getreg(nr2char(char))
-		let escaped_register = escape(register_content, '\'.getcmdtype())
-		return substitute(escaped_register, '\n', '\\n', 'g')
-	endif
-endfunction
-
-" Custom commands {{{1
-function! Foo()
-	call system('sleep 2')
-endfunction
 
 " :Stab {{{2
 " Set tabstop, softtabstop and shiftwidth to the same value
@@ -281,36 +277,13 @@ let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-" textobj-entire {{{2
-" textobj-entire defines: ie/ae maps
-" Instead, use:           ia/aa
-let g:textobj_entire_no_default_key_mappings = 1
-xmap aa  <Plug>(textobj-entire-a)
-omap aa  <Plug>(textobj-entire-a)
-xmap ia  <Plug>(textobj-entire-i)
-omap ia  <Plug>(textobj-entire-i)
-
-" Fugitive.vim {{{2
-if has("autocmd")
-
-	" Auto-close fugitive buffers
-	autocmd BufReadPost fugitive://* set bufhidden=delete
-
-	" Navigate up one level from fugitive trees and blobs
-	autocmd User fugitive
-				\ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-				\   nnoremap <buffer> .. :edit %:h<CR> |
-				\ endif
-
-endif
-
 " Add git branch to statusline.
 if exists("*fugitive#statusline")
 	set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 endif
 
-" Gundo.vim {{{2
-map <leader>gf :CtrlPClearAllCaches<cr> :CtrlP features_wip<cr>
+" CtrlP  {{{2
+map <leader>gf :CtrlPClearAllCaches<cr>
 
 " Gundo.vim {{{2
 map <Leader>u :GundoToggle<CR>

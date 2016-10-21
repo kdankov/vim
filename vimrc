@@ -1,7 +1,4 @@
-set nocompatible
-set t_Co=256
-
-syntax on
+filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -37,7 +34,7 @@ Plugin 'tpope/vim-markdown'
 Plugin 'sjl/vim-sparkup'
 Plugin 'mattn/emmet-vim'
 Plugin 'SirVer/ultisnips'
-Plugin 'kdankov/vim-snippets'
+Plugin 'honza/vim-snippets'
 Plugin 'dsawardekar/wordpress.vim'
 Plugin 'junegunn/goyo.vim'
 Plugin 'vim-airline/vim-airline'
@@ -50,6 +47,11 @@ Plugin 'sjl/gundo.vim'
 call vundle#end()			" required
 
 filetype plugin indent on
+
+set nocompatible
+set t_Co=256
+
+syntax on
 
 " Load plugins that ship with Vim {{{1
 runtime macros/matchit.vim
@@ -272,6 +274,14 @@ endfun
 
 " Plugin configuration {{{1
 
+" Macros
+let @p = 'yss<p>'
+let @a = 'yss<a href="">'
+let @l = 'yss<li>'
+let @u = 'yss<ul>'
+let @o = 'yss<ol>'
+let @d = 'yss<div>'
+
 " Javascript
 let g:html_indent_inctags = "html,body,head,tbody"
 let g:html_indent_script1 = "inc"
@@ -315,7 +325,7 @@ let g:ctrlp_custom_ignore = {
 		\ }
 
 " UltiSnips {{{2
-let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
+" let g:UltiSnipsSnippetsDir = "~/.vim/bundle/vim-snippets/UltiSnips"
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"

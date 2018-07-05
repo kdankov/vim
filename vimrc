@@ -26,6 +26,7 @@ if exists('*minpac#init')
   call minpac#add('tpope/vim-ragtag')
   call minpac#add('tpope/vim-fugitive')
   call minpac#add('tpope/vim-commentary')
+  call minpac#add('stephpy/vim-yaml')
   call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('AndrewRadev/splitjoin.vim')
   call minpac#add('AndrewRadev/sideways.vim')
@@ -44,7 +45,7 @@ if exists('*minpac#init')
   call minpac#add('sjl/vim-sparkup')
   call minpac#add('mattn/emmet-vim')
   call minpac#add('SirVer/ultisnips')
-  call minpac#add('honza/vim-snippets')
+  call minpac#add('kdankov/vim-snippets')
   call minpac#add('dsawardekar/wordpress.vim')
   call minpac#add('junegunn/goyo.vim')
   call minpac#add('vim-airline/vim-airline')
@@ -216,11 +217,12 @@ nnoremap vaT vatV
 
 " Macros
 let @p = 'yss<p>'
-let @a = 'yss<a href="">'
+let @a = 'yss<a href="#">'
 let @l = 'yss<li>'
 let @u = 'yss<ul>'
 let @o = 'yss<ol>'
 let @d = 'yss<div>'
+let @n = 'vip:norm@avip:norm@lvipS<ul>'
 
 " Plugin settings here.
 
@@ -253,7 +255,6 @@ let g:space_disable_select_mode=1
 let g:space_no_search = 1
 
 " UltiSnips
-
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -261,6 +262,12 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+" Snippets dir
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/pack/minpac/start/vim-snippets/UltiSnips']
+
+" Assigning snippets to filetypes
+autocmd FileType scss UltiSnipsAddFiletypes css
 
 " Pipe a URL to the default browser {{{1
 "

@@ -12,13 +12,39 @@ if exists('*minpac#init')
   call minpac#init()
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-  " Additional plugins here.
-  call minpac#add('vim-jp/syntax-vim-ex')
-
-  call minpac#add('w0rp/ale')
-
+  " Lib stuff
   call minpac#add('rizzatti/funcoo.vim')
   call minpac#add('tomtom/tlib_vim')
+  call minpac#add('tmhedberg/matchit')
+
+  " Themes
+  call minpac#add('altercation/vim-colors-solarized')
+
+  " Syntax & Language support
+  call minpac#add('vim-jp/syntax-vim-ex')
+  call minpac#add('cakebaker/scss-syntax.vim')
+  call minpac#add('othree/html5.vim')
+  call minpac#add('stephpy/vim-yaml')
+  call minpac#add('pangloss/vim-javascript')
+  call minpac#add('leshill/vim-json')
+  call minpac#add('plasticboy/vim-markdown')
+  "call minpac#add('tpope/vim-haml')
+
+  " TextObjects
+  call minpac#add('kana/vim-textobj-user')
+  call minpac#add('jasonlong/vim-textobj-css')
+
+  " Linting & Syntax Checking
+  call minpac#add('w0rp/ale')
+  "call minpac#add('scrooloose/syntastic')
+  
+  " File Navigation, Search and Management
+  call minpac#add('kien/ctrlp.vim')
+  call minpac#add('pasela/ctrlp-cdnjs')
+  call minpac#add('mileszs/ack.vim')
+  "call minpac#add('scrooloose/nerdtree')
+  
+  " TPOPE!!!
   call minpac#add('tpope/vim-surround')
   call minpac#add('tpope/vim-repeat')
   call minpac#add('tpope/vim-speeddating')
@@ -26,47 +52,43 @@ if exists('*minpac#init')
   call minpac#add('tpope/vim-ragtag')
   call minpac#add('tpope/vim-fugitive')
   call minpac#add('tpope/vim-commentary')
-  call minpac#add('stephpy/vim-yaml')
-  call minpac#add('nelstrom/vim-visual-star-search')
+
+  " Utilities
   call minpac#add('AndrewRadev/splitjoin.vim')
   call minpac#add('AndrewRadev/sideways.vim')
+  call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('godlygeek/tabular')
-  call minpac#add('tmhedberg/matchit')
-  call minpac#add('altercation/vim-colors-solarized')
-  call minpac#add('junegunn/limelight.vim')
-  call minpac#add('kien/ctrlp.vim')
-  call minpac#add('mileszs/ack.vim')
   call minpac#add('scrooloose/nerdcommenter')
-  call minpac#add('cakebaker/scss-syntax.vim')
-  call minpac#add('othree/html5.vim')
-  call minpac#add('pangloss/vim-javascript')
-  call minpac#add('leshill/vim-json')
-  call minpac#add('tpope/vim-markdown')
-  call minpac#add('sjl/vim-sparkup')
   call minpac#add('mattn/emmet-vim')
+  call minpac#add('sjl/vim-sparkup')
+
+  "call minpac#add('sjl/gundo.vim')
+
+  " Snippets
   call minpac#add('SirVer/ultisnips')
   call minpac#add('kdankov/vim-snippets')
-  call minpac#add('dsawardekar/wordpress.vim')
+  
+  " Clean edditting
   call minpac#add('junegunn/goyo.vim')
-  call minpac#add('vim-airline/vim-airline')
-  call minpac#add('vim-airline/vim-airline-themes')
-  call minpac#add('tpope/vim-haml')
-  call minpac#add('rizzatti/dash.vim')
-  call minpac#add('sjl/gundo.vim')
-  call minpac#add('pasela/ctrlp-cdnjs')
-  call minpac#add('2072/PHP-Indenting-for-VIm')
-  call minpac#add('kana/vim-textobj-user')
-  call minpac#add('jasonlong/vim-textobj-css')
-  call minpac#add('KabbAmine/gulp-vim')
-  call minpac#add('ervandew/supertab')
-  call minpac#add('shawncplus/phpcomplete.vim')
-  "call minpac#add('scrooloose/syntastic')
-  call minpac#add('StanAngeloff/php.vim')
-  call minpac#add('captbaritone/better-indent-support-for-php-with-html')
-  call minpac#add('scrooloose/nerdtree')
+  call minpac#add('junegunn/limelight.vim')
+  
+  "call minpac#add('dsawardekar/wordpress.vim')
+  
+  " Status line
+  "call minpac#add('vim-airline/vim-airline')
+  "call minpac#add('vim-airline/vim-airline-themes')
+  
+  "call minpac#add('rizzatti/dash.vim')
+ 
+  "call minpac#add('2072/PHP-Indenting-for-VIm')
+  "call minpac#add('shawncplus/phpcomplete.vim')
+  "call minpac#add('StanAngeloff/php.vim')
+  "call minpac#add('captbaritone/better-indent-support-for-php-with-html')
+  
+  "call minpac#add('KabbAmine/gulp-vim')
 
   " Learning vim the HARD way
-  call minpac#add('wikitopian/hardmode')
+  "call minpac#add('wikitopian/hardmode')
 
 endif
 
@@ -129,6 +151,8 @@ set number
 set norelativenumber
 set cursorline
 set hlsearch
+
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Toggle spell checking on and off with `,s`
 nmap <silent> <leader>s :set spell!<CR>
@@ -223,11 +247,16 @@ let @u = 'yss<ul>'
 let @o = 'yss<ol>'
 let @d = 'yss<div>'
 let @n = 'vip:norm@avip:norm@lvipS<ul>'
+let @i = '/<h\d>yitF>i id="pa"vi"gugv:s/\%V\_s/-/ggv:s/\%V-&-/-and-/g'
 
 " Plugin settings here.
 
 " HardMode
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+"nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+
+" Sideways
+nnoremap <c-h> :SidewaysLeft<cr>
+nnoremap <c-l> :SidewaysRight<cr>
 
 " CtrlP
 map <leader>gf :CtrlPClearAllCaches<cr>
@@ -247,27 +276,17 @@ let g:ctrlp_custom_ignore = {
 		\ 'file': '\v\.(exe|so|dll|map)$',
 		\ }
 
-" Gundo
-map <Leader>u :GundoToggle<CR>
-
-" Space.vim
-let g:space_disable_select_mode=1
-let g:space_no_search = 1
-
 " UltiSnips
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
-
-" Snippets dir
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/pack/minpac/start/vim-snippets/UltiSnips']
-
-" Assigning snippets to filetypes
 autocmd FileType scss UltiSnipsAddFiletypes css
+
+" Goyo 
+let g:goyo_width="90%"
+let g:goyo_height="95%"
 
 " Pipe a URL to the default browser {{{1
 "
@@ -323,3 +342,52 @@ endfunction
 " information of plugins, then performs the task.
 command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
 command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+
+" Hide status line
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+
+nnoremap <S-h> :call ToggleHiddenAll()<CR>
+call ToggleHiddenAll()
+
+" Presenter mode
+let s:presenter_mode = 0
+function! TogglePresenterMode()
+	if s:presenter_mode  == 0
+		let s:presenter_mode = 1
+		set bg=light
+		set guifont=Fira\ Code:h19
+		set nonumber
+		set shortmess=atWAIcqF
+		let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<cr>'], }
+		call ToggleHiddenAll()
+		:ALEToggle
+		:Goyo
+	else
+		let s:presenter_mode = 0
+		set bg=dark
+		set guifont=Fira\ Code:h14
+		set number
+		set shortmess=filnxtToO
+		let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<c-t>'], }
+		call ToggleHiddenAll()
+		:ALEToggle
+		:Goyo!
+    endif
+endfunction
+
+map <Leader>p :call TogglePresenterMode()<CR>

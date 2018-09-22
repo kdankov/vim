@@ -255,8 +255,8 @@ let @i = '/<h\d>yitF>i id="pa"vi"gugv:s/\%V\_s/-/ggv:s/\%V-&-/-and-/g'
 "nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 " Sideways
-nnoremap <c-h> :SidewaysLeft<cr>
-nnoremap <c-l> :SidewaysRight<cr>
+"nnoremap <c-s-h> :SidewaysLeft<cr>
+"nnoremap <c-s-l> :SidewaysRight<cr>
 
 " CtrlP
 map <leader>gf :CtrlPClearAllCaches<cr>

@@ -15,7 +15,7 @@ if exists('*minpac#init')
   " Lib stuff
   call minpac#add('rizzatti/funcoo.vim')
   call minpac#add('tomtom/tlib_vim')
-  call minpac#add('tmhedberg/matchit')
+  call minpac#add('andymass/vim-matchup')
 
   " Themes
   call minpac#add('altercation/vim-colors-solarized')
@@ -163,6 +163,9 @@ nmap <silent> <leader>l :set list!<CR>
 " Toggle search highlight
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
+"-- EXTERNAL CONFIGS --
+"source ~/.vim/config/autoclose.vim 
+
 " Commands to quickly set >1 option in one go {{{2
 command! -nargs=* Wrap set wrap linebreak nolist
 command! -nargs=* Maxsize set columns=1000 lines=1000
@@ -245,9 +248,10 @@ let @a = 'yss<a href="#">'
 let @l = 'yss<li>'
 let @u = 'yss<ul>'
 let @o = 'yss<ol>'
-let @d = 'yss<div>'
 let @n = 'vip:norm@avip:norm@lvipS<ul>'
 let @i = '/<h\d>yitF>i id="pa"vi"gugv:s/\%V\_s/-/ggv:s/\%V-&-/-and-/g'
+let @f = 'yypjkki<a href="Ji">lxA<a<80>kb/a>yss<li>'
+let @m = 'vip:norm@f;<80>kbvipS<ul>'
 
 " Plugin settings here.
 
@@ -273,6 +277,7 @@ let g:ctrlp_custom_ignore = {
 		\ 'dir':  '\v[\/]\.(git|hg|svn)$',
 		\ 'node':  '\v[\/]\(node_modules)$',
 		\ 'bower':  '\v[\/]\(bower_components)$',
+		\ 'fa':  '\v[\/]\(fontawesome)$',
 		\ 'file': '\v\.(exe|so|dll|map)$',
 		\ }
 
@@ -391,3 +396,5 @@ function! TogglePresenterMode()
 endfunction
 
 map <Leader>p :call TogglePresenterMode()<CR>
+
+set secure

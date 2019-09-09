@@ -13,6 +13,7 @@ if exists('*minpac#init')
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 
   " Lib stuff
+  call minpac#add('tpope/vim-sensible')
   call minpac#add('rizzatti/funcoo.vim')
   call minpac#add('tomtom/tlib_vim')
   call minpac#add('andymass/vim-matchup')
@@ -119,8 +120,6 @@ set shiftwidth=4
 set noexpandtab
 set nowrap
 
-set nu
-
 set undofile
 set undodir=~/.vim/tmp/undo
 if !isdirectory(expand(&undodir))
@@ -150,10 +149,18 @@ set ruler
 set showcmd
 set laststatus=2
 set listchars=tab:▸\ ,eol:¬
+
 set number
-set norelativenumber
+set rnu
+
 set cursorline
 set hlsearch
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
@@ -264,6 +271,9 @@ endif
 "nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
 
 " Matchit
+
+hi MatchParen guifg=orange
+
 augroup matchup_matchparen_highlight
   autocmd!
   autocmd ColorScheme * hi MatchParen guifg=orange

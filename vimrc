@@ -13,21 +13,23 @@ if exists('*minpac#init')
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 
   " Lib stuff
+  call minpac#add('tpope/vim-sensible')
   call minpac#add('rizzatti/funcoo.vim')
   call minpac#add('tomtom/tlib_vim')
-  call minpac#add('tmhedberg/matchit')
+  call minpac#add('andymass/vim-matchup')
 
   " Themes
   call minpac#add('altercation/vim-colors-solarized')
 
   " Syntax & Language support
-  call minpac#add('vim-jp/syntax-vim-ex')
+  call minpac#add('vim-jp/syntax-vim-ex') " syntax highlighting for Vim script.
   call minpac#add('cakebaker/scss-syntax.vim')
   call minpac#add('othree/html5.vim')
   call minpac#add('stephpy/vim-yaml')
   call minpac#add('pangloss/vim-javascript')
   call minpac#add('leshill/vim-json')
   call minpac#add('plasticboy/vim-markdown')
+  call minpac#add('tpope/vim-liquid')
   "call minpac#add('tpope/vim-haml')
 
   " TextObjects
@@ -40,7 +42,6 @@ if exists('*minpac#init')
   
   " File Navigation, Search and Management
   call minpac#add('kien/ctrlp.vim')
-  call minpac#add('pasela/ctrlp-cdnjs')
   call minpac#add('mileszs/ack.vim')
   "call minpac#add('scrooloose/nerdtree')
   
@@ -58,7 +59,6 @@ if exists('*minpac#init')
   call minpac#add('AndrewRadev/sideways.vim')
   call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('godlygeek/tabular')
-  call minpac#add('scrooloose/nerdcommenter')
   call minpac#add('mattn/emmet-vim')
   call minpac#add('sjl/vim-sparkup')
 
@@ -67,12 +67,13 @@ if exists('*minpac#init')
   " Snippets
   call minpac#add('SirVer/ultisnips')
   call minpac#add('kdankov/vim-snippets')
+  call minpac#add('sudar/vim-wordpress-snippets')
   
   " Clean edditting
   call minpac#add('junegunn/goyo.vim')
   call minpac#add('junegunn/limelight.vim')
   
-  "call minpac#add('dsawardekar/wordpress.vim')
+  call minpac#add('dsawardekar/wordpress.vim')
   
   " Status line
   "call minpac#add('vim-airline/vim-airline')
@@ -81,9 +82,10 @@ if exists('*minpac#init')
   "call minpac#add('rizzatti/dash.vim')
  
   "call minpac#add('2072/PHP-Indenting-for-VIm')
+  "call minpac#add('captbaritone/better-indent-support-for-php-with-html')
+  
   "call minpac#add('shawncplus/phpcomplete.vim')
   "call minpac#add('StanAngeloff/php.vim')
-  "call minpac#add('captbaritone/better-indent-support-for-php-with-html')
   
   "call minpac#add('KabbAmine/gulp-vim')
 
@@ -108,15 +110,15 @@ set bg=dark
 
 let mapleader = ","
 noremap \ ,
+
 set exrc
+set secure
 
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set nowrap
-
-set rnu
 
 set undofile
 set undodir=~/.vim/tmp/undo
@@ -140,17 +142,25 @@ set wildmode=full
 set wildmenu
 set wildignore=*.pdf,*.fo,*.xml
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.sass-cache/* " Ignore rules for Vim and plug-ins.
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/* " Linux/MacOSX
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/node_modules/*,*/dist/* " Linux/MacOSX
 
 " Appearance
 set ruler
 set showcmd
 set laststatus=2
 set listchars=tab:▸\ ,eol:¬
+
 set number
-set norelativenumber
+set rnu
+
 set cursorline
 set hlsearch
+
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
 
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
@@ -245,14 +255,30 @@ let @a = 'yss<a href="#">'
 let @l = 'yss<li>'
 let @u = 'yss<ul>'
 let @o = 'yss<ol>'
-let @d = 'yss<div>'
 let @n = 'vip:norm@avip:norm@lvipS<ul>'
 let @i = '/<h\d>yitF>i id="pa"vi"gugv:s/\%V\_s/-/ggv:s/\%V-&-/-and-/g'
+let @f = 'yypjkki<a href="Ji">lxA</a>yss<li>'
+let @m = 'vip:norm@f;<80>kbvipS<ul>'
+
+" Source the vimrc file after saving it
+if has("autocmd")
+  autocmd bufwritepost .vimrc source $MYVIMRC
+endif
 
 " Plugin settings here.
 
 " HardMode
 "nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+
+" Matchit
+
+hi MatchParen guifg=orange
+
+augroup matchup_matchparen_highlight
+  autocmd!
+  autocmd ColorScheme * hi MatchParen guifg=orange
+augroup END
+
 
 " Sideways
 "nnoremap <c-s-h> :SidewaysLeft<cr>
@@ -270,10 +296,12 @@ let g:ctrlp_prompt_mappings = {
 		\ }
 
 let g:ctrlp_custom_ignore = {
-		\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-		\ 'node':  '\v[\/]\(node_modules)$',
-		\ 'bower':  '\v[\/]\(bower_components)$',
-		\ 'file': '\v\.(exe|so|dll|map)$',
+		\ 'dir'         : '\v[\/]\.(git|hg|svn)$',
+		\ 'node'        : '\v[\/]\(node_modules)$',
+		\ 'bower'       : '\v[\/]\(bower_components)$',
+		\ 'assets/dist' : '\v[\/]\(assets/dist)$',
+		\ 'fa'          : '\v[\/]\(fontawesome)$',
+		\ 'file'        : '\v\.(exe|so|dll|map)$',
 		\ }
 
 " UltiSnips

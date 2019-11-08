@@ -283,20 +283,22 @@ nnoremap <c-s-l> :SidewaysRight<cr>
 
 " CtrlP
 map <leader>gf :CtrlPClearAllCaches<cr>
+map <c-b> :CtrlPBuffer<cr>
 
 let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_working_path_mode = 0
 
 let g:ctrlp_prompt_mappings = {
-		\ 'AcceptSelection("e")': ['<c-t>'],
-		\ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+		\ 'AcceptSelection("t")': ['<c-t>'],
+		\ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
 		\ }
 
 let g:ctrlp_custom_ignore = {
 		\ 'dir'         : '\v[\/]\.(git|hg|svn)$',
 		\ 'node'        : '\v[\/]\(node_modules)$',
 		\ 'bower'       : '\v[\/]\(bower_components)$',
-		\ 'assets/dist' : '\v[\/]\(assets/dist)$',
+		\ 'jekyll-dest' : '\v[\/]\(_site)$',
+		\ 'assets/dist' : '\v[\/]\(dist)$',
 		\ 'fa'          : '\v[\/]\(fontawesome)$',
 		\ 'file'        : '\v\.(exe|so|dll|map)$',
 		\ }
@@ -307,6 +309,7 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/pack/minpac/start/vim-snippets/UltiSnips']
+
 autocmd FileType scss UltiSnipsAddFiletypes css
 
 " Goyo 
@@ -398,7 +401,6 @@ function! TogglePresenterMode()
 		set guifont=Fira\ Code:h19
 		set nonumber
 		set shortmess=atWAIcqF
-		let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<cr>'], }
 		call ToggleHiddenAll()
 		:ALEToggle
 		:Goyo
@@ -408,7 +410,6 @@ function! TogglePresenterMode()
 		set guifont=Fira\ Code:h14
 		set number
 		set shortmess=filnxtToO
-		let g:ctrlp_prompt_mappings = { 'AcceptSelection("e")': ['<c-t>'], }
 		call ToggleHiddenAll()
 		:ALEToggle
 		:Goyo!

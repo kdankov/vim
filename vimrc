@@ -16,7 +16,7 @@ if exists('*minpac#init')
   call minpac#add('tpope/vim-sensible')
   call minpac#add('rizzatti/funcoo.vim')
   call minpac#add('tomtom/tlib_vim')
-  call minpac#add('andymass/vim-matchup')
+  " call minpac#add('andymass/vim-matchup')
 
   " Themes
   call minpac#add('altercation/vim-colors-solarized')
@@ -30,6 +30,11 @@ if exists('*minpac#init')
   call minpac#add('leshill/vim-json')
   call minpac#add('plasticboy/vim-markdown')
   call minpac#add('tpope/vim-liquid')
+  call minpac#add('StanAngeloff/php.vim')
+  call minpac#add('2072/PHP-Indenting-for-VIm')
+  call minpac#add('mxw/vim-jsx')
+  call minpac#add('othree/yajs.vim')
+  
   "call minpac#add('tpope/vim-haml')
 
   " TextObjects
@@ -57,6 +62,8 @@ if exists('*minpac#init')
   " Utilities
   call minpac#add('AndrewRadev/splitjoin.vim')
   call minpac#add('AndrewRadev/sideways.vim')
+  " call minpac#add('AndrewRadev/whitespaste.vim')
+  call minpac#add('AndrewRadev/tagalong.vim')
   call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('godlygeek/tabular')
   call minpac#add('mattn/emmet-vim')
@@ -73,21 +80,19 @@ if exists('*minpac#init')
   call minpac#add('junegunn/goyo.vim')
   call minpac#add('junegunn/limelight.vim')
   
+  " WordPress
   call minpac#add('dsawardekar/wordpress.vim')
   
   " Status line
-  "call minpac#add('vim-airline/vim-airline')
-  "call minpac#add('vim-airline/vim-airline-themes')
+  call minpac#add('vim-airline/vim-airline')
+  call minpac#add('vim-airline/vim-airline-themes')
+  call minpac#add('edkolev/tmuxline.vim')
   
   "call minpac#add('rizzatti/dash.vim')
- 
-  "call minpac#add('2072/PHP-Indenting-for-VIm')
-  "call minpac#add('captbaritone/better-indent-support-for-php-with-html')
   
   "call minpac#add('shawncplus/phpcomplete.vim')
-  "call minpac#add('StanAngeloff/php.vim')
   
-  "call minpac#add('KabbAmine/gulp-vim')
+  call minpac#add('KabbAmine/gulp-vim')
 
   " Learning vim the HARD way
   "call minpac#add('wikitopian/hardmode')
@@ -272,17 +277,9 @@ endif
 
 " Matchit
 
-hi MatchParen guifg=orange
-
-augroup matchup_matchparen_highlight
-  autocmd!
-  autocmd ColorScheme * hi MatchParen guifg=orange
-augroup END
-
-
 " Sideways
-"nnoremap <c-s-h> :SidewaysLeft<cr>
-"nnoremap <c-s-l> :SidewaysRight<cr>
+nnoremap <c-s-h> :SidewaysLeft<cr>
+nnoremap <c-s-l> :SidewaysRight<cr>
 
 " CtrlP
 map <leader>gf :CtrlPClearAllCaches<cr>

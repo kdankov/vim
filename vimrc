@@ -23,19 +23,27 @@ if exists('*minpac#init')
 
   " Syntax & Language support
   call minpac#add('vim-jp/syntax-vim-ex') " syntax highlighting for Vim script.
-  call minpac#add('cakebaker/scss-syntax.vim')
+
   call minpac#add('othree/html5.vim')
+  call minpac#add('cakebaker/scss-syntax.vim')
+
+  call minpac#add('mattn/emmet-vim')
+  call minpac#add('sjl/vim-sparkup')
+
   call minpac#add('stephpy/vim-yaml')
+  call minpac#add('plasticboy/vim-markdown')
+
+  call minpac#add('tpope/vim-liquid')
+  
   call minpac#add('pangloss/vim-javascript')
   call minpac#add('leshill/vim-json')
-  call minpac#add('plasticboy/vim-markdown')
-  call minpac#add('tpope/vim-liquid')
-  call minpac#add('StanAngeloff/php.vim')
-  call minpac#add('2072/PHP-Indenting-for-VIm')
-  call minpac#add('mxw/vim-jsx')
-  call minpac#add('othree/yajs.vim')
-  
-  "call minpac#add('tpope/vim-haml')
+
+  " call minpac#add('mxw/vim-jsx')
+  " call minpac#add('othree/yajs.vim')
+
+  " call minpac#add('StanAngeloff/php.vim')
+  " call minpac#add('2072/PHP-Indenting-for-VIm')
+  " call minpac#add('tpope/vim-haml')
 
   " TextObjects
   call minpac#add('kana/vim-textobj-user')
@@ -43,11 +51,14 @@ if exists('*minpac#init')
 
   " Linting & Syntax Checking
   call minpac#add('w0rp/ale')
+  call minpac#add('prettier/vim-prettier')
   "call minpac#add('scrooloose/syntastic')
-  
+
   " File Navigation, Search and Management
-  call minpac#add('kien/ctrlp.vim')
+  call minpac#add('junegunn/fzf.vim')
   call minpac#add('mileszs/ack.vim')
+  call minpac#add('kien/ctrlp.vim')
+
   "call minpac#add('scrooloose/nerdtree')
   
   " TPOPE!!!
@@ -62,12 +73,10 @@ if exists('*minpac#init')
   " Utilities
   call minpac#add('AndrewRadev/splitjoin.vim')
   call minpac#add('AndrewRadev/sideways.vim')
-  " call minpac#add('AndrewRadev/whitespaste.vim')
   call minpac#add('AndrewRadev/tagalong.vim')
   call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('godlygeek/tabular')
-  call minpac#add('mattn/emmet-vim')
-  call minpac#add('sjl/vim-sparkup')
+  call minpac#add('gcmt/taboo.vim')
 
   "call minpac#add('sjl/gundo.vim')
 
@@ -81,19 +90,22 @@ if exists('*minpac#init')
   call minpac#add('junegunn/limelight.vim')
   
   " WordPress
-  call minpac#add('dsawardekar/wordpress.vim')
+  " call minpac#add('dsawardekar/wordpress.vim')
   
   " Status line
   call minpac#add('vim-airline/vim-airline')
   call minpac#add('vim-airline/vim-airline-themes')
-  call minpac#add('edkolev/tmuxline.vim')
+
+
+  " call minpac#add('edkolev/tmuxline.vim')
+
   
   "call minpac#add('rizzatti/dash.vim')
-  
   "call minpac#add('shawncplus/phpcomplete.vim')
-  
-  call minpac#add('KabbAmine/gulp-vim')
+  "call minpac#add('KabbAmine/gulp-vim')
 
+  " call minpac#add('AndrewRadev/whitespaste.vim')
+  "
   " Learning vim the HARD way
   "call minpac#add('wikitopian/hardmode')
 
@@ -160,6 +172,8 @@ set rnu
 
 set cursorline
 set hlsearch
+
+set rtp+=/usr/local/opt/fzf
 
 augroup numbertoggle
   autocmd!

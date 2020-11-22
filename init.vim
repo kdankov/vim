@@ -1,14 +1,6 @@
-" For a paranoia.
-" Normally `:set nocp` is not needed, because it is done automatically
-" when .vimrc is found.
-if &compatible
-  " `:set nocp` has many side effects. Therefore this should be done
-  " only when 'compatible' is set.
-  set nocompatible
-endif
+function! PackInit() abort
+  packadd minpac
 
-if exists('*minpac#init')
-  " minpac is loaded.
   call minpac#init()
   call minpac#add('k-takata/minpac', {'type': 'opt'})
 
@@ -16,6 +8,7 @@ if exists('*minpac#init')
   call minpac#add('tpope/vim-sensible')
   call minpac#add('rizzatti/funcoo.vim')
   call minpac#add('tomtom/tlib_vim')
+
   " call minpac#add('andymass/vim-matchup')
 
   " Themes
@@ -109,7 +102,7 @@ if exists('*minpac#init')
   " Learning vim the HARD way
   "call minpac#add('wikitopian/hardmode')
 
-endif
+endfunction
 
 " Default settings here.
 
@@ -119,7 +112,7 @@ set t_Co=256
 
 syntax on
 
-if filereadable( expand("$HOME/.vim/pack/minpac/start/vim-colors-solarized/colors/solarized.vim") )
+if filereadable( expand("$HOME/.config/nvim/pack/minpac/start/vim-colors-solarized/colors/solarized.vim") )
 	colorscheme solarized
 endif
 
@@ -138,7 +131,7 @@ set noexpandtab
 set nowrap
 
 set undofile
-set undodir=~/.vim/tmp/undo
+set undodir=~/.config/nvim/tmp/undo
 if !isdirectory(expand(&undodir))
     call mkdir(expand(&undodir), "p")
 endif
@@ -281,7 +274,7 @@ let @m = 'vip:norm@f;<80>kbvipS<ul>'
 
 " Source the vimrc file after saving it
 if has("autocmd")
-  autocmd bufwritepost .vimrc source $MYVIMRC
+  autocmd bufwritepost init.vim source $MYVIMRC
 endif
 
 " Plugin settings here.
@@ -322,7 +315,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetDirectories=[$HOME.'/.vim/pack/minpac/start/vim-snippets/UltiSnips']
+let g:UltiSnipsSnippetDirectories=[$HOME.'/.config/nvim/pack/minpac/start/vim-snippets/UltiSnips']
 
 autocmd FileType scss UltiSnipsAddFiletypes css
 
@@ -382,8 +375,9 @@ endfunction
 " Define user commands for updating/cleaning the plugins.
 " Each of them loads minpac, reloads .vimrc to register the
 " information of plugins, then performs the task.
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+command! PackUpdate call PackInit() | call minpac#update()
+command! PackClean  call PackInit() | call minpac#clean()
+command! PackStatus packadd minpac | call minpac#status()
 
 " Hide status line
 let s:hidden_all = 0

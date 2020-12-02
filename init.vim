@@ -12,7 +12,8 @@ function! PackInit() abort
   " call minpac#add('andymass/vim-matchup')
 
   " Themes
-  call minpac#add('altercation/vim-colors-solarized')
+  call minpac#add('overcache/NeoSolarized')
+  call minpac#add('matsen/nvim-colors-solarized')
 
   " Syntax & Language support
   call minpac#add('vim-jp/syntax-vim-ex') " syntax highlighting for Vim script.
@@ -31,26 +32,29 @@ function! PackInit() abort
   call minpac#add('pangloss/vim-javascript')
   call minpac#add('leshill/vim-json')
 
-  " call minpac#add('mxw/vim-jsx')
-  " call minpac#add('othree/yajs.vim')
-
-  " call minpac#add('StanAngeloff/php.vim')
-  " call minpac#add('2072/PHP-Indenting-for-VIm')
-  " call minpac#add('tpope/vim-haml')
+  call minpac#add('leafgarland/typescript-vim')
+  call minpac#add('peitalin/vim-jsx-typescript')
+  call minpac#add('ianks/vim-tsx')
 
   " TextObjects
   call minpac#add('kana/vim-textobj-user')
   call minpac#add('jasonlong/vim-textobj-css')
 
-  " Linting & Syntax Checking
-  call minpac#add('w0rp/ale')
   call minpac#add('prettier/vim-prettier')
-  "call minpac#add('scrooloose/syntastic')
+
+  " Linting & Syntax Checking
+  call minpac#add('neoclide/coc.nvim', {'branch': 'release'})
+  call minpac#add('fannheyward/coc-marketplace', {'do': 'silent !yarn install --frozen-lockfile'})
+  call minpac#add('neoclide/coc-git', {'do': 'silent !(yarn install --frozen-lockfile)'})
+  call minpac#add('neoclide/coc-tsserver', {'type': 'opt'}, {'do': 'silent !(yarn install --frozen-lockfile)'})
+  call minpac#add('neoclide/coc-html', {'type': 'opt'}, {'do': 'silent !(yarn install --frozen-lockfile)'})
+  call minpac#add('neoclide/coc-json', {'type': 'opt'}, {'do': 'silent !(yarn install --frozen-lockfile)'})
 
   " File Navigation, Search and Management
+  call minpac#add('junegunn/fzf', { 'do': { -> fzf#install() } })
   call minpac#add('junegunn/fzf.vim')
+
   call minpac#add('mileszs/ack.vim')
-  call minpac#add('kien/ctrlp.vim')
 
   "call minpac#add('scrooloose/nerdtree')
   
@@ -70,8 +74,7 @@ function! PackInit() abort
   call minpac#add('nelstrom/vim-visual-star-search')
   call minpac#add('godlygeek/tabular')
   call minpac#add('gcmt/taboo.vim')
-
-  "call minpac#add('sjl/gundo.vim')
+  call minpac#add('sjl/gundo.vim')
 
   " Snippets
   call minpac#add('SirVer/ultisnips')
@@ -82,22 +85,13 @@ function! PackInit() abort
   call minpac#add('junegunn/goyo.vim')
   call minpac#add('junegunn/limelight.vim')
   
-  " WordPress
-  " call minpac#add('dsawardekar/wordpress.vim')
-  
   " Status line
   call minpac#add('vim-airline/vim-airline')
   call minpac#add('vim-airline/vim-airline-themes')
 
-
-  " call minpac#add('edkolev/tmuxline.vim')
-
-  
+  "call minpac#add('edkolev/tmuxline.vim')
   "call minpac#add('rizzatti/dash.vim')
-  "call minpac#add('shawncplus/phpcomplete.vim')
-  "call minpac#add('KabbAmine/gulp-vim')
-
-  " call minpac#add('AndrewRadev/whitespaste.vim')
+  "call minpac#add('AndrewRadev/whitespaste.vim')
   "
   " Learning vim the HARD way
   "call minpac#add('wikitopian/hardmode')
@@ -106,15 +100,14 @@ endfunction
 
 " Default settings here.
 
-filetype plugin indent on
-
-set t_Co=256
-
-syntax on
-
-if filereadable( expand("$HOME/.config/nvim/pack/minpac/start/vim-colors-solarized/colors/solarized.vim") )
-	colorscheme solarized
+if (has("termguicolors"))
+ set termguicolors
 endif
+
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+syntax enable
+colorscheme solarized
 
 set bg=dark
 
@@ -129,6 +122,9 @@ set softtabstop=4
 set shiftwidth=4
 set noexpandtab
 set nowrap
+
+set splitright
+set splitbelow
 
 set undofile
 set undodir=~/.config/nvim/tmp/undo
@@ -167,6 +163,17 @@ set cursorline
 set hlsearch
 
 set rtp+=/usr/local/opt/fzf
+
+" turn terminal to normal mode with escape
+tnoremap <Esc> <C-\><C-n>
+" start terminal in insert mode
+au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+" open terminal on ctrl+n
+function! OpenTerminal()
+  split term://zsh
+  resize 10
+endfunction
+nnoremap <c-n> :call OpenTerminal()<CR>
 
 augroup numbertoggle
   autocmd!
@@ -288,27 +295,19 @@ endif
 nnoremap <c-s-h> :SidewaysLeft<cr>
 nnoremap <c-s-l> :SidewaysRight<cr>
 
+" COC
+let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
+
 " CtrlP
-map <leader>gf :CtrlPClearAllCaches<cr>
-map <c-b> :CtrlPBuffer<cr>
+nnoremap <C-p> :FZF<CR>
 
-let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_working_path_mode = 0
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-s': 'split',
+  \ 'ctrl-v': 'vsplit'
+  \}
 
-let g:ctrlp_prompt_mappings = {
-		\ 'AcceptSelection("t")': ['<c-t>'],
-		\ 'AcceptSelection("e")': ['<cr>', '<2-LeftMouse>'],
-		\ }
-
-let g:ctrlp_custom_ignore = {
-		\ 'dir'         : '\v[\/]\.(git|hg|svn)$',
-		\ 'node'        : '\v[\/]\(node_modules)$',
-		\ 'bower'       : '\v[\/]\(bower_components)$',
-		\ 'jekyll-dest' : '\v[\/]\(_site)$',
-		\ 'assets/dist' : '\v[\/]\(dist)$',
-		\ 'fa'          : '\v[\/]\(fontawesome)$',
-		\ 'file'        : '\v\.(exe|so|dll|map)$',
-		\ }
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -410,7 +409,6 @@ function! TogglePresenterMode()
 		set nonumber
 		set shortmess=atWAIcqF
 		call ToggleHiddenAll()
-		:ALEToggle
 		:Goyo
 	else
 		let s:presenter_mode = 0
@@ -419,7 +417,6 @@ function! TogglePresenterMode()
 		set number
 		set shortmess=filnxtToO
 		call ToggleHiddenAll()
-		:ALEToggle
 		:Goyo!
     endif
 endfunction

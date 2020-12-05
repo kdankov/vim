@@ -12,7 +12,7 @@ function! PackInit() abort
   " call minpac#add('andymass/vim-matchup')
 
   " Themes
-  call minpac#add('overcache/NeoSolarized')
+  "call minpac#add('overcache/NeoSolarized')
   call minpac#add('matsen/nvim-colors-solarized')
 
   " Syntax & Language support
@@ -298,8 +298,14 @@ nnoremap <c-s-l> :SidewaysRight<cr>
 " COC
 let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver']
 
-" CtrlP
+" FZF
+" let g:fzf_buffers_jump = 1
+let g:fzf_tags_command = 'ctags -R'
+
 nnoremap <C-p> :FZF<CR>
+nnoremap <C-b> :Buffers<CR>
+" nnoremap <C-p> :GFiles<CR>
+
 
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
